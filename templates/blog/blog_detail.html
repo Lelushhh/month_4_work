@@ -1,0 +1,67 @@
+{% load static %}
+
+{% include '../header.html' %}
+
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  <!-- Во всех двойных фигурных скобках - передаем ключ из views.py и названия поля из models.py -->
+
+<main class="news-detail-container">
+
+    <!-- Detail -->
+    <section class="news-detail">
+        <h1 class="news-title">{{ blog_id.name_blog }}</h1>
+
+        <div class="news-media">
+            <img
+                src="{{ blog_id.image.url }}"
+                alt="{{ blog_id.name_blog }}"
+                class="news-image"
+            >
+        </div>
+
+        <p class="news-description">
+            {{ blog_id.description }}
+        </p>
+
+        <div class="news-meta">
+            <span class="news-category">
+                Категория: {{ blog_id.type_blog }}
+            </span>
+            <time class="news-date">
+                {{ blog_id.created_at }}
+            </time>
+        </div>
+    </section>
+
+    <!-- Comments -->
+    <section class="comments">
+        <h3 class="comments-title">Отзывы</h3>
+
+        {% if blog_id.review.all %}
+            <ul class="comments-list">
+                {% for i in blog_id.review.all %}
+                <li class="comment-item">
+                    <p class="comment-rating">
+                        Оценка:
+                        <span class="stars">{{ i.marks }}/5</span>
+                    </p>
+
+                    <p class="comment-text">
+                        {{ i.text }}
+                    </p>
+
+                    <time class="comment-date">
+                        {{ i.created_at }}
+                    </time>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-comments">Нет отзывов</p>
+        {% endif %}
+    </section>
+
+</main>
+
+
+{% include '../footer.html' %}
