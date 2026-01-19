@@ -1,0 +1,23 @@
+{% load static %}
+
+{% include '../header.html' %}
+
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+
+
+<div class="todo-wrapper">
+    <h1>Регистрация</h1>
+
+    <form  method="post" class="todo-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-submit">Регистрация</button>
+            <button type="reset" class="btn btn-reset">Очистить форму</button>
+        </div>
+    </form>
+</div>
+
+
+{% include '../footer.html' %}
